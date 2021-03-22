@@ -2,7 +2,13 @@
   <div id="app">
     <main>
       <div class="search-box">
-        <input type="text" class="search-bar" placeholder="Search..."/>
+        <input type="text"
+        class="search-bar"
+        placeholder="Search..."
+        v-model="query"
+        @keypress="fetchWeather"
+        />
+        {{ query }}
       </div>
 
       <div class="weather-wrap">
@@ -25,7 +31,17 @@ export default {
   data() {
     return {
       api_key: "044561895dea6bb012b382db70fa2dae",
+      url_base: 'https://api.openweathermap.org/data/2.5/',
+      query: '',
+      weather: {}
     };
+  },
+  methods: {
+    fetchWeather(e) {
+      if (e.key == "Enter") {
+        fetch(`${this.api_base}weather?q=${this.query}`)
+      }
+    }
   }
 };
 </script>
@@ -38,7 +54,7 @@ export default {
   }
 
   body {
-    font-family: 'montserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif;
   }
 
   #app {
@@ -112,6 +128,19 @@ export default {
     font-size: 102px;
     font-weight: 900;
 
-    text-shadow: 3px 6px rgba()
+    text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
+    background-color: rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+    margin: 30px 0px;
+
+    box-shadow: 3px 6px rgba(0, 0, 0, 0.25);
+  }
+
+  .weather-box .weather {
+    color: #fff;
+    font-size: 48px;
+    font-weight: 700;
+    font-style: italic;
+    text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
   }
 </style>
